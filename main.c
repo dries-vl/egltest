@@ -6,11 +6,10 @@
 #include <time.h>
 
 #include <wayland-client.h>
-#include <wayland-egl.h>
-
 #include "xdg-shell-client-protocol.h"
 #include "xdg-shell-protocol.c"
 
+#include <wayland-egl.h>
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 #include <GLES2/gl2.h>
@@ -28,7 +27,7 @@ static int width = 640, height = 480, configured = 0;
 static void naptick(void){ struct timespec t={0,16*1000000}; nanosleep(&t,0); }
 
 static void paint(void){
-    glViewport(0,0,width,height);
+    //glViewport(0,0,width,height);
     glClearColor(0.2f,0.5f,0.7f,1.f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
@@ -106,7 +105,7 @@ int main(void)
     paint(); eglSwapBuffers(edpy,esurf); wl_display_flush(dpy);   /* pixel ≤12 ms */
 
     /* 5-second demo loop ----------------------------------------------- */
-    for(int i=0;i<3000;i++){ paint(); eglSwapBuffers(edpy,esurf); naptick(); }
+    for(int i=0;i<300;i++){ paint(); eglSwapBuffers(edpy,esurf); naptick(); }
 
     return 0;
 }
